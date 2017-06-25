@@ -21,7 +21,8 @@ class UserAjaxController extends Controller
      */
     public function index(Request $request)
     {
-        
+        $users = Users::latest()->paginate(5);
+        return response()->json($users);
     }
 
     /**
@@ -32,7 +33,8 @@ class UserAjaxController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $create = Users::create($request->all());
+        return response()->json($create);
     }
 
     /**
@@ -44,7 +46,8 @@ class UserAjaxController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+        $edit = Users::find($id)->update($request->all());
+        return response()->json($edit);
     }
 
     /**
@@ -55,6 +58,7 @@ class UserAjaxController extends Controller
      */
     public function destroy($id)
     {
-       
+        Users::find($id)->delete();
+        return response()->json(['done']);
     } //
 }
